@@ -1,0 +1,14 @@
+[
+  {
+    "title": "A*Snake",
+    "image": "/projects/snake/preview.png",
+    "link": "/projects/snake/index.html",
+    "mode": "arcade"
+  },
+  {
+    "title": "RGB Crystal Simulator",
+    "image": "/projects/rgb-crystal/preview.png",
+    "link": "/projects/rgb-crystal/index.html",
+    "mode": "adaptive"
+  }
+]
