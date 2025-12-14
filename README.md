@@ -1,16 +1,89 @@
-# React + Vite
+# 🟢 NEPHRITE.EXE // SYSTEM_MANUAL_v1.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/CORE-REACT_18-blue?style=for-the-badge)
+![Tailwind](https://img.shields.io/badge/STYLE-TAILWIND_CSS-cyan?style=for-the-badge)
+![Status](https://img.shields.io/badge/SYSTEM-ONLINE-success?style=for-the-badge)
 
-Currently, two official plugins are available:
+> **"Turning caffeine into code since 2025."**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**NEPHRITE.EXE** is a high-fidelity, retro-futuristic personal operating system designed to showcase projects, skills, and experiments. It combines nostalgic **CRT aesthetics** with modern **React performance**, featuring a fully interactive interface, simulated hardware limitations, and a 3D parallax environment.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📸 VISUAL DATABASE
 
-## Expanding the ESLint configuration
+| **Boot Sequence** | **Desktop Environment** |
+|:---:|:---:|
+| _Simulated BIOS initialization with randomized hex dumps and loading bars._ | _Parallax 3D Grid Floor with Aurora Haze and fixed system UI._ |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| **Cartridge Launcher** | **System Config** |
+|:---:|:---:|
+| _Holographic project cards with scanline sweep interactions._ | _Real-time control over CRT effects, sound, and system resets._ |
+
+---
+
+## ⚡ CORE MODULES
+
+### 🖥️ The Visual Engine
+* **Pure CSS CRT Effect:** Scanlines, RGB shift, and screen curvature implemented without WebGL.
+* **3D Parallax Background:** A "Synthwave" grid floor that moves in 3D space (`perspective: 500px`) with a fixed "Aurora" sky.
+* **Responsive Design:**
+    * **Arcade Mode (Desktop):** Projects launch in a fixed 16:9 CRT bezel container.
+    * **Adaptive Mode (Mobile):** Projects automatically switch to a touch-friendly, full-width interface.
+
+### ⚙️ System Architecture
+* **Global State Management:** Custom `useSystemSettings` hook controls audio, CRT intensity, and theme persistence.
+* **Session Persistence:** Boot sequence runs only once per session (via `sessionStorage`). Settings are saved to `localStorage`.
+* **Interaction Design:**
+    * "Clicky" UI sounds (optional toggle).
+    * Blinking cursors and typing effects.
+    * "Holofoil" hover states on cards.
+
+### 📂 The "Dossier" (About Page)
+* **Identity Card:** Fetches live avatar data from GitHub.
+* **Skill Matrix:** Progress bars with neon glow effects tailored to Light/Dark modes.
+* **System Log:** Chronological career history formatted as a terminal boot log.
+
+---
+
+## 🛠️ INSTALLATION PROTOCOL
+
+**Prerequisites:** Node.js v16+
+
+1.  **Clone the Repository:**
+    ```bash
+    git clone [https://github.com/Jadie145/JMMD.git](https://github.com/Jadie145/JMMD.git)
+    cd JMMD
+    ```
+
+2.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Initialize Development Server:**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Build for Production:**
+    ```bash
+    npm run build
+    ```
+
+---
+
+## 🕹️ CUSTOMIZATION GUIDE
+
+### 1. Adding Projects
+Navigate to `src/data/projects.json`. The system automatically generates "Cartridges" based on this data.
+
+```json
+{
+  "title": "Project Name",
+  "image": "/path/to/image.png",
+  "link": "/path/to/project/index.html",
+  "mode": "arcade", // or "adaptive" / "interactive"
+  "version": "v1.0",
+  "size": "128KB"
+}
