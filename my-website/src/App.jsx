@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import BootScreen from "./components/BootScreen";
+import Navbar from "./components/navbar";
+import Footer from "./components/footer"; // Ensure this is imported
+import BootScreen from "./components/bootscreen";
 import { useSystemSettings } from "./hooks/usesystemsettings";
 
 import Home from "./pages/Home";
@@ -17,24 +18,22 @@ export default function App() {
 
   const { settings } = useSystemSettings();
 
-  // Scanline intensity (CSS variable)
   useEffect(() => {
-    const strength =
-      typeof settings.scanlines === "number"
-        ? settings.scanlines
-        : 0.4;
-
-    document.documentElement.style.setProperty(
-      "--scanline-strength",
-      strength
-    );
+    const strength = typeof settings.scanlines === "number" ? settings.scanlines : 0.15;
+    document.documentElement.style.setProperty("--scanline-strength", strength);
   }, [settings.scanlines]);
 
-  // Sound toggle (global)
   useEffect(() => {
-    document.documentElement.dataset.sound =
-      settings.sound ? "on" : "off";
+    document.documentElement.dataset.sound = settings.sound ? "on" : "off";
   }, [settings.sound]);
+
+  useEffect(() => {
+    if (settings.crt) {
+        document.body.classList.add('crt-global');
+    } else {
+        document.body.classList.remove('crt-global');
+    }
+  }, [settings.crt]);
 
   const finishBoot = () => {
     sessionStorage.setItem("booted", "true");
@@ -45,29 +44,47 @@ export default function App() {
 
   return (
     <Router>
-      <div
-        className={[
-          "min-h-screen",
-          settings.background ? "retro-bg" : "",
-          settings.crt ? "crt" : "",
-          settings.debug ? "debug-overlay" : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-        style={{
-          "--scanline-strength": settings.scanlines,
-        }}
-      >
-        <Navbar />
+      <div className="min-h-screen w-full text-foreground selection:bg-green-500/30 selection:text-green-200">
+        
+        {/* === LAYER 1: FIXED BACKGROUND WALLPAPER === */}
+        {/* This div sits permanently in the back and never scrolls */}
+        <div 
+            className={`fixed inset-0 z-0 pointer-events-none ${
+                settings.background ? "retro-bg" : "bg-neutral-900"
+            }`}
+        ></div>
 
-        <main className="relative z-10 p-6">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/sys" element={<System />} />
-          </Routes>
-        </main>
+        {/* === LAYER 2: APP CONTENT === */}
+        {/* This is what scrolls. Navbar and Footer sit inside here but use 'fixed' to stay on screen */}
+        <div className="relative z-10">
+            
+            <Navbar />
+
+            {/* Main Content:
+                - pt-24: Pushes content down below Navbar
+                - pb-24: Pushes content up above Footer
+                - min-h-screen: Ensures footer is always at bottom even on empty pages
+            */}
+            <main className="pt-24 pb-24 px-4 max-w-7xl mx-auto min-h-screen flex flex-col">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/sys" element={<System />} />
+              </Routes>
+            </main>
+
+            <Footer />
+        </div>
+
+        {/* === LAYER 3: GLOBAL OVERLAYS === */}
+        {/* Debug or CRT effects that sit on top of EVERYTHING */}
+        {settings.debug && <div className="debug-overlay fixed inset-0 z-[100] pointer-events-none"></div>}
+        
+        {settings.crt && (
+            <div className="pointer-events-none fixed inset-0 z-[60] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-20"></div>
+        )}
+        
       </div>
     </Router>
   );
