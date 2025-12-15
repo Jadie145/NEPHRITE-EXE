@@ -1,16 +1,15 @@
 {
-  "homepage": "https://Jadie145.github.io/NEPHRITE.EXE",
   "name": "my-website",
-  "private": true,
+  "homepage": "https://Jadie145.github.io/NEPHRITE-EXE/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "predeploy": "npm run dev",
-    "deploy": "gh-pages -d dev",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
