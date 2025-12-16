@@ -17,8 +17,8 @@
   },
   {
     "title": "Chestris",
-    "image": "/projects/chestris/preview.png",
-    "link": "/projects/chestris/index.html",
+    "image": "/projects/chesstris/preview.png",
+    "link": "/projects/chesstris/chestris.html",
     "mode": "arcade",
     "version": "v1.0",
     "size": "8.18MB"
