@@ -9,7 +9,7 @@
 
 **NEPHRITE.EXE** is a high-fidelity, retro-futuristic personal operating system designed to showcase projects, skills, and experiments. It combines nostalgic **CRT aesthetics** with modern **React performance**, featuring a fully interactive interface, simulated hardware limitations, and a 3D parallax environment.
 
-### 🟢 [ACCESS TERMINAL HERE (Live Demo)](https://jadie145.github.io/NEPHRITE-EXE/)
+### 🟢 [ACCESS TERMINAL HERE (Website Live)](https://jadie145.github.io/NEPHRITE-EXE/)
 
 ---
 
