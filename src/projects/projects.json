@@ -22,5 +22,13 @@
     "mode": "arcade",
     "version": "v1.0",
     "size": "8.18MB"
+  },
+  {
+    "title": "Retroboy",
+    "image": "/projects/retroboy/preview.png",
+    "link": "/#/play/retro-console",
+    "mode": "interactive",
+    "version": "v1.0",
+    "size": "3MB"
   }
 ]

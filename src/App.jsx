@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom"; // <--- REMOVED "BrowserRouter as Router"
+import { Routes, Route } from "react-router-dom"; 
 
-import Navbar from "./components/navbar";
-import Footer from "./components/footer"; 
 import BootScreen from "./components/bootscreen";
 import { useSystemSettings } from "./hooks/usesystemsettings";
+import OSLayout from "./layouts/OSLayout"; // <--- Import the Layout
 
+// Pages
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import About from "./pages/About";
 import System from "./pages/System";
+
+// Import your React Games here
+import RetroHandheld from "./games/RetroConsole/Game";
+
 
 export default function App() {
   const [booted, setBooted] = useState(
@@ -18,6 +22,8 @@ export default function App() {
 
   const { settings } = useSystemSettings();
 
+  // === GLOBAL EFFECTS (CRT, Sound, Scanlines) ===
+  // These apply to EVERYTHING, including games
   useEffect(() => {
     const strength = typeof settings.scanlines === "number" ? settings.scanlines : 0.15;
     document.documentElement.style.setProperty("--scanline-strength", strength);
@@ -43,34 +49,24 @@ export default function App() {
   if (!booted) return <BootScreen onFinish={finishBoot} />;
 
   return (
-    // <--- REMOVED <Router> wrapper here
     <div className="min-h-screen w-full text-foreground selection:bg-green-500/30 selection:text-green-200">
       
-      {/* === LAYER 1: FIXED BACKGROUND WALLPAPER === */}
-      <div 
-          className={`fixed inset-0 z-0 pointer-events-none ${
-              settings.background ? "retro-bg" : "bg-neutral-900"
-          }`}
-      ></div>
+      <Routes>
+        {/* === GROUP 1: THE OS (Has Navbar, Footer, Wallpaper) === */}
+        <Route element={<OSLayout />}>
+           <Route path="/" element={<Home />} />
+           <Route path="/projects" element={<Projects />} />
+           <Route path="/about" element={<About />} />
+           <Route path="/sys" element={<System />} />
+        </Route>
 
-      {/* === LAYER 2: APP CONTENT === */}
-      <div className="relative z-10">
-          
-          <Navbar />
+        {/* === GROUP 2: STANDALONE GAMES (Clean Canvas) === */}
+        {/* These routes will NOT have the Navbar or Footer */}
+        <Route path="/play/retro-console" element={<RetroHandheld />} />
+        
+      </Routes>
 
-          <main className="pt-24 pb-24 px-4 max-w-7xl mx-auto min-h-screen flex flex-col">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/sys" element={<System />} />
-            </Routes>
-          </main>
-
-          <Footer />
-      </div>
-
-      {/* === LAYER 3: GLOBAL OVERLAYS === */}
+      {/* === LAYER 3: GLOBAL OVERLAYS (Apply to games too) === */}
       {settings.debug && <div className="debug-overlay fixed inset-0 z-[100] pointer-events-none"></div>}
       
       {settings.crt && (
@@ -78,6 +74,5 @@ export default function App() {
       )}
       
     </div>
-    // <--- REMOVED </Router> wrapper here
   );
 }
